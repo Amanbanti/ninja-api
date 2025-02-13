@@ -22,7 +22,7 @@ export class NinjasService {
         const ninja = this.ninjas.find((ninja)=>ninja.id === id)
 
         if(!ninja){
-            return 'ninja not found!'
+           throw new Error ('ninja not found!')
         }
         return ninja
         

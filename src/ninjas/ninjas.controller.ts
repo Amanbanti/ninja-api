@@ -1,4 +1,4 @@
-import { Controller,Get, Post,Delete,Put,Param,Query,Body } from '@nestjs/common';
+import { Controller,Get, Post,Delete,Put,Param,Query,Body, NotFoundException } from '@nestjs/common';
 import { CreateNinjaDto} from './dto/create-ninja.dto';
 import {UpdateNinjaDto} from './dto/update-ninja.dto'
 import { NinjasService } from './ninjas.service';
@@ -17,7 +17,13 @@ export class NinjasController {
     //Get /ninjas/:id
     @Get(':id')
     getOneNinja(@Param ('id')  id: string){
-        return this.ninjasService.getNinja(+id)
+
+        try {
+            return this.ninjasService.getNinja(+id)
+        } catch (error) {
+            throw new NotFoundException()
+        }
+       
     }
 
     //Post /ninjas
